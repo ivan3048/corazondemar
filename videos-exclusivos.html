@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazón de Mar - Beach Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES Y RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fcfbf9;
+            color: #111111;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. BARRA DE ANUNCIOS: EDICIÓN PROYECTO ESCOLAR --- */
+        .announcement-bar {
+            background-color: #f58787; 
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* --- 2. ENCABEZADO INTEGRADO PREMIUM (HEADER) --- */
+        .site-header {
+            width: 100%;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+            z-index: 90;
+        }
+
+        .header-main-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Botón de Hamburguesa */
+        .menu-toggle-btn {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        /* Bloque Central: Logotipo */
+        .header-logo {
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .logo-title {
+            font-size: 1.65rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .logo-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Bloque Derecho: Espaciador estético para equilibrar */
+        .header-spacer {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* --- 3. MENÚ LATERAL DESPLEGABLE (SIDEBAR) --- */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -320px; 
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 35px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .sidebar-nav.open {
+            left: 0; 
+        }
+
+        /* Botón Cerrar Sidebar */
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.25rem;
+            align-self: flex-end;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .sidebar-close-btn:hover {
+            color: #f58787;
+        }
+
+        /* Lista de Navegación Vertical */
+        .sidebar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #f58787;
+            padding-left: 6px;
+        }
+
+        .sidebar-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Fondo traslúcido de desenfoque al abrir menú */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            z-index: 190;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- 4. NUEVA SECCIÓN HERO DE MARCA (MUY VISUAL) --- */
+        .brand-hero-section {
+            width: 100%;
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 6%;
+            /* Degradado sofisticado que evoca arena, mar y atardecer premium */
+            background: linear-gradient(135deg, #fceddb 0%, #fbe3e6 50%, #dbe9f4 100%);
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .brand-hero-content {
+            max-width: 800px;
+            z-index: 5;
+        }
+
+        .brand-subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #f58787;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #111111;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        .brand-description {
+            font-size: 1rem;
+            color: #555555;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* --- 5. SECCIÓN DE VIDEOS DE YOUTUBE --- */
+        .brand-videos-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 4%;
+            text-align: center;
+        }
+
+        .section-separator-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #111111;
+            margin-bottom: 50px;
+        }
+
+        .section-separator-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1.5px;
+            background-color: #f58787;
+            margin: 15px auto 0 auto;
+        }
+
+        /* Contenedor de Cuadrícula Visual */
+        .video-buttons-grid {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Tarjeta / Botón Premium de Video */
+        .video-interactive-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 440px;
+            background: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 16px;
+            padding: 45px 30px;
+            text-decoration: none;
+            color: #111111;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+        }
+
+        /* Efectos Hover de la Tarjeta */
+        .video-interactive-card:hover {
+            transform: translateY(-8px);
+            border-color: #f58787;
+            box-shadow: 0 15px 35px rgba(245, 135, 135, 0.12);
+        }
+
+        /* Botón Circular Play Dinámico */
+        .interactive-play-btn {
+            width: 65px;
+            height: 65px;
+            background-color: #fbe3e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .video-interactive-card:hover .interactive-play-btn {
+            background-color: #f58787;
+            transform: scale(1.08);
+        }
+
+        /* Triángulo del icono Play */
+        .interactive-play-btn::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 11px solid transparent;
+            border-bottom: 11px solid transparent;
+            border-left: 18px solid #f58787;
+            margin-left: 5px;
+            transition: border-left-color 0.3s ease;
+        }
+
+        .video-interactive-card:hover .interactive-play-btn::after {
+            border-left-color: #ffffff;
+        }
+
+        .card-video-title {
+            font-size: 1.15rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .video-interactive-card:hover .card-video-title {
+            color: #f58787;
+        }
+
+        .card-video-action-text {
+            font-size: 0.75rem;
+            color: #888888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* --- RESPONSIVIDAD ADAPTATIVA --- */
+        @media (max-width: 992px) {
+            .logo-title {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+            .brand-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .announcement-bar {
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+                padding: 12px 15px;
+            }
+
+            .header-main-row {
+                padding: 18px 5%;
+            }
+
+            .brand-hero-section {
+                padding: 50px 5%;
+                min-height: auto;
+            }
+
+            .brand-title {
+                font-size: 2.2rem;
+            }
+
+            .brand-videos-section {
+                margin: 60px auto;
+            }
+
+            .video-buttons-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .video-interactive-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Anuncios -->
+    <div class="announcement-bar">
+        Este sitio web es un proyecto escolar
+    </div>
+
+    <!-- Capa de Fondo Traslúcida para el Menú -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Menú Lateral Desplegable (Sidebar) -->
+<nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
+        <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <ul class="sidebar-list">
+            <li><a href="index.html" class="sidebar-link">Inicio</a></li>
+            <li><a href="bikinis.html" class="sidebar-link">Bikinis</a></li>
+            <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
+            <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
+            <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
+        </ul>
+    </nav>
+
+    <!-- Encabezado Principal (Header) -->
+    <header class="site-header">
+        <div class="header-main-row">
+            
+            <div class="menu-toggle-btn">
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú de navegación">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="header-logo">
+                <h1 class="logo-title">Corazón de Mar</h1>
+                <span class="logo-subtitle">beach store</span>
+            </div>
+
+            <div class="header-spacer"></div>
+            
+        </div>
+    </header>
+
+    <!-- Sección Hero Visual de la Marca -->
+    <section class="brand-hero-section">
+        <div class="brand-hero-content">
+            <span class="brand-subtitle">Nuestra Filosofía</span>
+            <h2 class="brand-title">Siente la Esencia del Verano</h2>
+            <p class="brand-description">
+                En Corazón de Mar diseñamos piezas que capturan la libertad del océano y la sofisticación de los días bajo el sol. Nos especializamos en crear un universo completo para tus escapadas: desde bikinis regulables de calce anatómico y trajes de baño enteros que estilizan tu silueta, hasta nuestra exclusiva línea Control Fit de soporte avanzado y las delicadas prendas Beachwear para tus caminatas sobre la arena. Cada diseño combina texturas premium y costuras invisibles que redefinen la comodidad y la elegancia playera.
+            </p>
+        </div>
+    </section>
+
+    <!-- Sección de Botones de Video Interactivos -->
+    <main class="brand-videos-section">
+        <h3 class="section-separator-title">Conoce la Experiencia</h3>
+        
+        <div class="video-buttons-grid">
+            
+            <!-- BOTÓN / TARJETA DE VIDEO 1 -->
+            <a href="https://youtube.com/shorts/2gYs9rQ4dGI?si=CpENp5xJpKqU06TY" target="_blank" class="video-interactive-card">
+                <div class="interactive-play-btn"></div>
+                <h4 class="card-video-title">Colección Primavera / Verano</h4>
+                <span class="card-video-action-text">Ver video en YouTube Shorts</span>
+            </a>
+
+            <!-- BOTÓN / TARJETA DE VIDEO 2 -->
+            <a href="https://youtube.com/shorts/VH26vBSb97I?si=UWh7TqEua2wwviW3" target="_blank" class="video-interactive-card">
+                <div class="interactive-play-btn"></div>
+                <h4 class="card-video-title">Detrás de Cámaras & Ajuste</h4>
+                <span class="card-video-action-text">Ver video en YouTube Shorts</span>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Lógica de Control del Menú Lateral -->
+    <script>
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Función para abrir el panel
+        function openMenu() {
+            sidebarNav.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        // Función para cerrar el panel
+        function closeMenu() {
+            sidebarNav.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; 
+        }
+
+        // Eventos de click
+        openMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+    </script>
+</body>
+</html>

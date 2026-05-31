@@ -1,13 +1,10 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corazón de Mar - Beach Store</title>
-    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
@@ -32,12 +29,14 @@
             background-color: #f58787; 
             color: #ffffff;
             text-align: center;
-            padding: 14px 20px; /* Un poco más de espacio para la jerarquía del texto */
-            font-size: 0.95rem; /* Texto más grande y visible */
-            font-weight: 700; /* Completamente en negrita */
-            letter-spacing: 4px; /* Mayor separación entre letras para un look de marca premium */
+            padding: 14px 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
             text-transform: uppercase;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 100;
         }
 
         /* --- 2. ENCABEZADO INTEGRADO PREMIUM (HEADER) --- */
@@ -45,7 +44,8 @@
             width: 100%;
             background-color: #ffffff;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* Separación visual suave */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+            z-index: 90;
         }
 
         .header-main-row {
@@ -58,63 +58,29 @@
             position: relative;
         }
 
-        /* Bloque Izquierdo: Menú Limpio */
-        .main-nav {
+        /* Botón de Hamburguesa */
+        .menu-toggle-btn {
             flex: 1;
-        }
-
-        .nav-list {
-            list-style: none;
             display: flex;
-            gap: 32px;
-            align-items: center;
+            justify-content: flex-start;
         }
 
-        .nav-link {
-            text-decoration: none;
-            color: #222222;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            padding: 6px 0;
-            position: relative;
-            transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        /* Micro-animación suave de línea inferior (Slider Underline) */
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1.5px;
-            background-color: #f58787;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .nav-link:hover {
+        .hamburger-btn:hover {
             color: #f58787;
+            transform: scale(1.05);
         }
 
-        .nav-link:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        .nav-link.active {
-            color: #f58787;
-            font-weight: 600;
-        }
-        
-        .nav-link.active::after {
-            transform: scaleX(1);
-        }
-
-        /* Bloque Central: Logotipo con Posición Absoluta Controlada */
+        /* Bloque Central: Logotipo */
         .header-logo {
             text-align: center;
             position: absolute;
@@ -143,48 +109,124 @@
             display: block;
         }
 
-        /* Bloque Derecho: Iconos de Acción Reorganizados */
-        .header-actions {
+        /* Bloque Derecho: Espaciador estético para equilibrar */
+        .header-spacer {
             flex: 1;
             display: flex;
             justify-content: flex-end;
-            align-items: center;
-            gap: 20px;
         }
 
-        .header-icon-btn {
-            color: #111111;
-            font-size: 1.15rem;
-            text-decoration: none;
-            position: relative;
-            padding: 6px;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .header-icon-btn:hover {
-            color: #f58787;
-            transform: translateY(-2px);
-        }
-
-        /* Burbuja/Contador interactivo de artículos en carrito */
-        .cart-count-badge {
-            position: absolute;
-            top: -2px;
-            right: -4px;
-            background-color: #111111;
-            color: #ffffff;
-            font-size: 0.6rem;
-            font-weight: 600;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
+        /* --- 3. MENÚ LATERAL DESPLEGABLE (SIDEBAR) --- */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -320px; /* Oculto por defecto */
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 200;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Montserrat', sans-serif;
+            flex-direction: column;
+            padding: 40px 35px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* --- 3. SECCIÓN HERO (AJUSTADA AL NUEVO HEADER) --- */
+        .sidebar-nav.open {
+            left: 0; /* Desplegado */
+        }
+
+        /* Botón Cerrar Sidebar */
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.25rem;
+            align-self: flex-end;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .sidebar-close-btn:hover {
+            color: #f58787;
+        }
+
+        /* Lista de Navegación Vertical */
+        .sidebar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #f58787;
+            padding-left: 6px;
+        }
+
+        .sidebar-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-link.active {
+            color: #f58787;
+            font-weight: 600;
+            padding-left: 6px;
+        }
+
+        .sidebar-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Fondo traslúcido de desenfoque al abrir menú */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            z-index: 190;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- 4. SECCIÓN HERO (PRESERVADO INTEGRAMENTE) --- */
         .hero-single-section {
             width: 100%;
             height: calc(100vh - 140px); 
@@ -212,11 +254,8 @@
             display: block;
         }
 
-        /* --- RESPONSIVIDAD ADAPTATIVA (MOBILE SMOOTH) --- */
+        /* --- RESPONSIVIDAD ADAPTATIVA --- */
         @media (max-width: 992px) {
-            .nav-list {
-                gap: 20px;
-            }
             .logo-title {
                 font-size: 1.4rem;
                 letter-spacing: 3px;
@@ -233,23 +272,6 @@
             .header-main-row {
                 padding: 18px 5%;
             }
-            
-            /* Ocultamos el menú principal para transformarlo a menú hamburguesa o interactivo en móvil */
-            .main-nav {
-                display: none; 
-            }
-
-            .header-logo {
-                position: static;
-                transform: none;
-                text-align: left;
-                flex: unset;
-            }
-
-            .header-actions {
-                flex: unset;
-                gap: 15px;
-            }
 
             .hero-single-section {
                 height: 60vh;
@@ -264,47 +286,72 @@
 </head>
 <body>
 
-    <!-- 1. Barra de Anuncios: Cambiada a Proyecto Escolar -->
     <div class="announcement-bar">
         Este sitio web es un proyecto escolar
     </div>
 
-    <!-- 2. Header Unificado y Estilizado -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
+        <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <ul class="sidebar-list">
+            <li><a href="index.html" class="sidebar-link">Inicio</a></li>
+            <li><a href="bikinis.html" class="sidebar-link">Bikinis</a></li>
+            <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
+            <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
+            <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
+        </ul>
+    </nav>
+
     <header class="site-header">
         <div class="header-main-row">
             
-            <!-- Bloque Izquierdo: Menú Flotante -->
-            <nav class="main-nav" aria-label="Navegación principal">
-                <ul class="nav-list">
-                    <li><a href="#" class="nav-link active">Inicio</a></li>
-                    <li><a href="#" class="nav-link">Catálogo</a></li>
-                    <li><a href="#" class="nav-link">Buscar</a></li>
-                </ul>
-            </nav>
+            <div class="menu-toggle-btn">
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú de navegación">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
 
-            <!-- Bloque Central: Identidad de Marca -->
             <div class="header-logo">
                 <h1 class="logo-title">Corazón de Mar</h1>
                 <span class="logo-subtitle">beach store</span>
             </div>
 
-            <!-- Bloque Derecho: Herramientas del Cliente -->
-            <div class="header-actions">
-                <!-- Icono de Búsqueda dinámico para móvil/desktop opcional -->
-                <a href="#" class="header-icon-btn" aria-label="Buscar productos">
-                    <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem; opacity: 0.8;"></i>
-                </a>
-                
-                <!-- Icono del Carrito de Compras con burbuja interactiva -->
-                <a href="#" class="header-icon-btn" aria-label="Carrito de compras">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span class="cart-count-badge">0</span>
-                </a>
-            </div>
+            <div class="header-spacer"></div>
             
         </div>
     </header>
 
+    <script>
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Función para abrir el panel
+        function openMenu() {
+            sidebarNav.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Evita scroll de fondo al estar abierto
+        }
+
+        // Función para cerrar el panel
+        function closeMenu() {
+            sidebarNav.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; // Devuelve el scroll normal
+        }
+
+        // Eventos de click
+        openMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+    </script>
+
+</body>
+</html>
 
 </body>
 </html>
@@ -772,7 +819,7 @@
 
         <div class="products-grid" id="productGroup1">
             
-            <a href="producto-bikini-yellow.html" class="product-card">
+            <a href="bikiniyellow.html" class="product-card">
                 <div class="product-image-container">
                     <img src="2.png" alt="Bikini Yellow" class="product-img img-default">
                     <img src="3.png" alt="Bikini Yellow Vista Alterna" class="product-img img-hover">
@@ -786,7 +833,7 @@
                 </div>
             </a>
 
-            <a href="producto-bikini-nicole.html" class="product-card">
+            <a href="bikininikole.html" class="product-card">
                 <div class="product-image-container">
                     <img src="4.png" alt="Bikini Nicole" class="product-img img-default">
                     <img src="5.png" alt="Bikini Nicole Vista Alterna" class="product-img img-hover">
@@ -800,7 +847,7 @@
                 </div>
             </a>
 
-            <a href="producto-bikini-beth.html" class="product-card">
+            <a href="bikinibeth.html" class="product-card">
                 <div class="product-image-container">
                     <img src="6.png" alt="Bikini Beth" class="product-img img-default">
                     <img src="7.png" alt="Bikini Beth Vista Alterna" class="product-img img-hover">
@@ -818,7 +865,7 @@
 
         <div class="products-grid grid-hidden-right" id="productGroup2">
             
-            <a href="producto-bikini-julie.html" class="product-card">
+            <a href="bikinijulie.html" class="product-card">
                 <div class="product-image-container">
                     <img src="8.png" alt="Bikini Julie" class="product-img img-default">
                     <img src="9.png" alt="Bikini Julie Vista Alterna" class="product-img img-hover">
@@ -832,7 +879,7 @@
                 </div>
             </a>
 
-            <a href="producto-bikini-sofia.html" class="product-card">
+            <a href="bikinisofia.html" class="product-card">
                 <div class="product-image-container">
                     <img src="10.png" alt="Bikini Sofía" class="product-img img-default">
                     <img src="11.png" alt="Bikini Sofía Vista Alterna" class="product-img img-hover">
@@ -846,7 +893,7 @@
                 </div>
             </a>
 
-            <a href="producto-bikini-dannie.html" class="product-card">
+            <a href="bikinidanie.html" class="product-card">
                 <div class="product-image-container">
                     <img src="12.png" alt="Bikini Dannie" class="product-img img-default">
                     <img src="13.png" alt="Bikini Dannie Vista Alterna" class="product-img img-hover">
@@ -867,7 +914,7 @@
     </div>
 
     <div class="view-all-container">
-        <a href="coleccion-completa.html" class="view-all-btn">Ver todo</a>
+        <a href="bikinis.html" class="view-all-btn">Ver todo</a>
     </div>
 </section>
 
@@ -1115,7 +1162,7 @@
         <button class="carousel-control control-prev" id="collPrev" aria-label="Colección Anterior"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="carousel-control control-next" id="collNext" aria-label="Colección Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
 
-       <a href="coleccion-bikinis.html" class="collection-slide active" style="background-image: url('https://images.unsplash.com/photo-1533659828870-95ee305cee3e?q=80&w=1600&auto=format&fit=crop');">
+       <a href="bikinis.html" class="collection-slide active" style="background-image: url(18.png);">
     <div class="collection-content">
         <span class="collection-tagline">Descubre lo nuevo</span>
         <h3 class="collection-name">Bikinis</h3>
@@ -1123,7 +1170,7 @@
     </div>
 </a>
 
-<a href="coleccion-enteros.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');">
+<a href="enteros.html" class="collection-slide" style="background-image: url(19.png);">
     <div class="collection-content">
         <span class="collection-tagline">Siluetas Perfectas</span>
         <h3 class="collection-name">Enteros</h3>
@@ -1131,7 +1178,7 @@
     </div>
 </a>
 
-<a href="coleccion-control-fit.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1520483601560-389dff434f1c?q=80&w=1600&auto=format&fit=crop');">
+<a href="control-fit.html" class="collection-slide" style="background-image: url(20.png);">
     <div class="collection-content">
         <span class="collection-tagline">Estilo y Soporte</span>
         <h3 class="collection-name">Control Fit</h3>
@@ -1139,7 +1186,7 @@
     </div>
 </a>
 
-<a href="coleccion-beachwear.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1600&auto=format&fit=crop');">
+<a href="beach-wear.html" class="collection-slide" style="background-image: url(21.png);">
     <div class="collection-content">
         <span class="collection-tagline">Complementos de Playa</span>
         <h3 class="collection-name">Beachwear</h3>
@@ -1378,7 +1425,6 @@
 </body>
 <!-- Enlace a FontAwesome para los iconos (asegúrate de tenerlo en tu proyecto) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <style>
     /* --- PIE DE PÁGINA (FOOTER) --- */
     .main-footer {
@@ -1492,7 +1538,7 @@
         color: #ffffff;
     }
 
-    /* --- COLUMNA 3: REDES Y NUEVO BOTÓN --- */
+    /* --- COLUMNA 3: REDES Y BOTONES --- */
     .footer-right-box {
         display: flex;
         flex-direction: column;
@@ -1528,7 +1574,14 @@
     .social-card-btn.instagram:hover { color: #e1306c; }
     .social-card-btn.facebook:hover { color: #1877f2; }
 
-    /* NUEVO BOTÓN DE VIDEOS INTERACTIVO */
+    /* CONTENEDOR PARA BOTONES MULTIMEDIA Y COLABORADORES */
+    .footer-actions-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* BOTONES INTERACTIVOS (ESTILO PÍLDORA) */
     .videos-btn {
         display: inline-flex;
         align-items: center;
@@ -1611,7 +1664,7 @@
             text-align: center;
         }
         .videos-btn {
-            width: 100%; /* El botón ocupa el ancho completo en móvil para mejor clickeo */
+            width: 100%; /* Ambos botones ocuparán el ancho completo en móvil */
         }
     }
 </style>
@@ -1655,7 +1708,7 @@
             </div>
         </div>
 
-        <!-- Columna 3: Redes Sociales Dinámicas y Botón Multimedia -->
+        <!-- Columna 3: Redes Sociales Dinámicas y Botones -->
         <div class="footer-right-box">
             <div>
                 <h3 class="footer-title">Síguenos</h3>
@@ -1669,10 +1722,13 @@
                 </div>
             </div>
 
-            <!-- Nuevo Módulo del Botón "Videos" -->
-            <div>
+            <!-- Módulo de Botones de Acción -->
+            <div class="footer-actions-wrapper">
                 <a href="videos-exclusivos.html" class="videos-btn">
                     <i class="fa-solid fa-play"></i> Videos
+                </a>
+                <a href="colaboradores.html" class="videos-btn colaboradores-btn">
+                    <i class="fa-solid fa-users"></i> Colaboradores
                 </a>
             </div>
         </div>
@@ -1682,7 +1738,7 @@
     <!-- Barra Inferior de Créditos -->
     <div class="footer-bottom">
         <span>© 2026 Corazón de Mar Beachstore. Tecnología de Shopify.</span>
-        <a href="terminos-y-politicas.html">Términos y políticas</a>
+      
     </div>
 </footer>
 </html>
