@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazón de Mar - Beach Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES Y RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. BARRA DE ANUNCIOS: EDICIÓN PROYECTO ESCOLAR --- */
+        .announcement-bar {
+            background-color: #f58787; 
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* --- 2. ENCABEZADO INTEGRADO PREMIUM (HEADER) --- */
+        .site-header {
+            width: 100%;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+            z-index: 90;
+        }
+
+        .header-main-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Botón de Hamburguesa */
+        .menu-toggle-btn {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        /* Bloque Central: Logotipo */
+        .header-logo {
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .logo-title {
+            font-size: 1.65rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .logo-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Bloque Derecho: Espaciador estético para equilibrar */
+        .header-spacer {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* --- 3. MENÚ LATERAL DESPLEGABLE (SIDEBAR) --- */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -320px; /* Oculto por defecto */
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 35px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .sidebar-nav.open {
+            left: 0; /* Desplegado */
+        }
+
+        /* Botón Cerrar Sidebar */
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.25rem;
+            align-self: flex-end;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .sidebar-close-btn:hover {
+            color: #f58787;
+        }
+
+        /* Lista de Navegación Vertical */
+        .sidebar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #f58787;
+            padding-left: 6px;
+        }
+
+        .sidebar-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-link.active {
+            color: #f58787;
+            font-weight: 600;
+            padding-left: 6px;
+        }
+
+        .sidebar-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Fondo traslúcido de desenfoque al abrir menú */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            z-index: 190;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- 4. NUEVA SECCIÓN: COLABORADORES --- */
+        .collaborators-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 6% 80px 6%;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #f58787;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #111111;
+            margin-bottom: 20px;
+        }
+
+        .title-divider {
+            width: 50px;
+            height: 2px;
+            background-color: #f58787;
+            margin: 0 auto;
+        }
+
+        /* Distribución en dos columnas */
+        .collaborators-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        /* Cuadrícula interna de tarjetas */
+        .collaborators-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .collaborator-card {
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .collaborator-card:hover {
+            transform: translateY(-5px);
+            border-color: #f58787;
+            box-shadow: 0 10px 25px rgba(245, 135, 135, 0.12);
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            background-color: rgba(245, 135, 135, 0.08);
+            color: #f58787;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .collaborator-card:hover .card-icon {
+            background-color: #f58787;
+            color: #ffffff;
+        }
+
+        .collaborator-lastname {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111111;
+            margin-bottom: 4px;
+        }
+
+        .collaborator-name {
+            font-size: 0.88rem;
+            color: #666666;
+            font-weight: 400;
+        }
+
+        /* Contenedor lateral para la imagen 1.png */
+        .image-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-box {
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            max-width: 360px;
+            width: 100%;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* --- RESPONSIVIDAD ADAPTATIVA --- */
+        @media (max-width: 992px) {
+            .logo-title {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+            .collaborators-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .image-showcase {
+                order: -1; /* Mueve el contenedor de imagen arriba en móviles y tabletas */
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .announcement-bar {
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+                padding: 12px 15px;
+            }
+
+            .header-main-row {
+                padding: 18px 5%;
+            }
+
+            .section-title {
+                font-size: 1.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .collaborators-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Anuncios -->
+    <div class="announcement-bar">
+        Este sitio web es un proyecto escolar
+    </div>
+
+    <!-- Fondo traslúcido para menú flotante -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Menú Lateral de Navegación -->
+    <nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
+        <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <ul class="sidebar-list">
+            <li><a href="index.html" class="sidebar-link">Inicio</a></li>
+            <li><a href="bikinis.html" class="sidebar-link">Bikinis</a></li>
+            <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
+            <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
+            <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
+           
+        </ul>
+    </nav>
+
+    <!-- Encabezado Principal Integrado -->
+    <header class="site-header">
+        <div class="header-main-row">
+            
+            <div class="menu-toggle-btn">
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú de navegación">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="header-logo">
+                <h1 class="logo-title">Corazón de Mar</h1>
+                <span class="logo-subtitle">beach store</span>
+            </div>
+
+            <div class="header-spacer"></div>
+            
+        </div>
+    </header>
+
+    <!-- Sección de Colaboradores de Proyecto -->
+    <main class="collaborators-section">
+        
+        <div class="section-intro">
+            <span class="section-subtitle">Equipo Creativo</span>
+            <h2 class="section-title">Colaboradores</h2>
+            <div class="title-divider"></div>
+        </div>
+
+        <div class="collaborators-layout">
+            
+            <!-- Bloque Izquierdo: Cuadrícula con los nombres solicitados -->
+            <div class="collaborators-grid">
+                
+                <!-- Colaborador 1 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">Arellano González</div>
+                    <div class="collaborator-name">Danna Yanel</div>
+                </div>
+
+                <!-- Colaborador 2 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">Bonequi Guzmán</div>
+                    <div class="collaborator-name">Dana Victoria</div>
+                </div>
+
+                <!-- Colaborador 3 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">Castillo Peralta</div>
+                    <div class="collaborator-name">Karol Alejandra</div>
+                </div>
+
+                <!-- Colaborador 4 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">Jauregui Calvillo</div>
+                    <div class="collaborator-name">Danna Sofía</div>
+                </div>
+
+                <!-- Colaborador 5 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">López Lara</div>
+                    <div class="collaborator-name">Jaretzy Dayane</div>
+                </div>
+
+                <!-- Colaborador 6 -->
+                <div class="collaborator-card">
+                    <div class="card-icon"><i class="fa-solid fa-user"></i></div>
+                    <div class="collaborator-lastname">Loza Ávila</div>
+                    <div class="collaborator-name">Montserrat</div>
+                </div>
+
+            </div>
+
+            <!-- Bloque Derecho: Imagen de Presentación (1.png) -->
+            <div class="image-showcase">
+                <div class="image-box">
+                    <img src="1.png" alt="Corazón de Mar Beach Store Graphic">
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JavaScript Lógica de Menú Desplegable -->
+    <script>
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Función para abrir el panel
+        function openMenu() {
+            sidebarNav.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Evita scroll de fondo al estar abierto
+        }
+
+        // Función para cerrar el panel
+        function closeMenu() {
+            sidebarNav.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; // Devuelve el scroll normal
+        }
+
+        // Eventos de click
+        openMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+    </script>
+
+</body>
+</html>
