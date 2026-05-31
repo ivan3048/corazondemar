@@ -226,11 +226,74 @@
             pointer-events: auto;
         }
 
-        /* --- 4. NUEVA SECCIÓN: COLABORADORES --- */
+        /* --- 4. SECCIÓN: MISIÓN Y VISIÓN --- */
+        .mv-section {
+            background-color: #faf8f5;
+            padding: 80px 6%;
+            border-top: 1px solid rgba(0,0,0,0.02);
+            border-bottom: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .mv-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .mv-box {
+            background-color: #ffffff;
+            padding: 50px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+            border: 1px solid #f0edf7;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mv-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+        }
+
+        .mv-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .mv-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(245, 135, 135, 0.1);
+            color: #f58787;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .mv-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: #111111;
+        }
+
+        .mv-text {
+            font-size: 0.95rem;
+            color: #555555;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* --- 5. SECCIÓN: COLABORADORES --- */
         .collaborators-section {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 6% 80px 6%;
+            padding: 80px 6%;
         }
 
         .section-intro {
@@ -356,12 +419,16 @@
                 font-size: 1.4rem;
                 letter-spacing: 3px;
             }
+            .mv-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
             .collaborators-layout {
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
             .image-showcase {
-                order: -1; /* Mueve el contenedor de imagen arriba en móviles y tabletas */
+                order: -1;
             }
             .section-title {
                 font-size: 2.2rem;
@@ -382,6 +449,14 @@
             .section-title {
                 font-size: 1.9rem;
             }
+
+            .mv-box {
+                padding: 40px 30px;
+            }
+            
+            .mv-title {
+                font-size: 1.7rem;
+            }
         }
 
         @media (max-width: 576px) {
@@ -393,15 +468,12 @@
 </head>
 <body>
 
-    <!-- Barra de Anuncios -->
     <div class="announcement-bar">
         Este sitio web es un proyecto escolar
     </div>
 
-    <!-- Fondo traslúcido para menú flotante -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Menú Lateral de Navegación -->
     <nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
         <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
             <i class="fa-solid fa-xmark"></i>
@@ -412,11 +484,10 @@
             <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
             <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
             <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
-           
+            <li><a href="colaboradores.html" class="sidebar-link active">Colaboradores</a></li>
         </ul>
     </nav>
 
-    <!-- Encabezado Principal Integrado -->
     <header class="site-header">
         <div class="header-main-row">
             
@@ -436,7 +507,32 @@
         </div>
     </header>
 
-    <!-- Sección de Colaboradores de Proyecto -->
+    <section class="mv-section">
+        <div class="mv-container">
+            
+            <div class="mv-box">
+                <div class="mv-header">
+                    <div class="mv-icon"><i class="fa-solid fa-compass"></i></div>
+                    <h3 class="mv-title">Misión</h3>
+                </div>
+                <p class="mv-text">
+                    Ofrecer trajes de baño y prendas de playa premium que combinen diseño contemporáneo, confort excepcional y la más alta calidad. Buscamos empoderar la confianza natural de cada persona bajo el sol, brindando piezas exclusivas que realzan la silueta y celebran la libertad y frescura del estilo de vida costero.
+                </p>
+            </div>
+
+            <div class="mv-box">
+                <div class="mv-header">
+                    <div class="mv-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3 class="mv-title">Visión</h3>
+                </div>
+                <p class="mv-text">
+                    Consolidarnos como la marca líder y referente de moda playera y trajes de baño a nivel nacional, siendo reconocidos por nuestra innovación constante, sofisticación estética y el compromiso inquebrantable con la satisfacción de nuestros clientes, expandiendo nuestra esencia costera a nuevos horizontes.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
     <main class="collaborators-section">
         
         <div class="section-intro">
@@ -447,45 +543,38 @@
 
         <div class="collaborators-layout">
             
-            <!-- Bloque Izquierdo: Cuadrícula con los nombres solicitados -->
             <div class="collaborators-grid">
                 
-                <!-- Colaborador 1 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">Arellano González</div>
                     <div class="collaborator-name">Danna Yanel</div>
                 </div>
 
-                <!-- Colaborador 2 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">Bonequi Guzmán</div>
                     <div class="collaborator-name">Dana Victoria</div>
                 </div>
 
-                <!-- Colaborador 3 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">Castillo Peralta</div>
                     <div class="collaborator-name">Karol Alejandra</div>
                 </div>
 
-                <!-- Colaborador 4 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">Jauregui Calvillo</div>
                     <div class="collaborator-name">Danna Sofía</div>
                 </div>
 
-                <!-- Colaborador 5 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">López Lara</div>
                     <div class="collaborator-name">Jaretzy Dayane</div>
                 </div>
 
-                <!-- Colaborador 6 -->
                 <div class="collaborator-card">
                     <div class="card-icon"><i class="fa-solid fa-user"></i></div>
                     <div class="collaborator-lastname">Loza Ávila</div>
@@ -494,7 +583,6 @@
 
             </div>
 
-            <!-- Bloque Derecho: Imagen de Presentación (1.png) -->
             <div class="image-showcase">
                 <div class="image-box">
                     <img src="1.png" alt="Corazón de Mar Beach Store Graphic">
@@ -505,7 +593,6 @@
 
     </main>
 
-    <!-- JavaScript Lógica de Menú Desplegable -->
     <script>
         const openMenuBtn = document.getElementById('openMenuBtn');
         const closeMenuBtn = document.getElementById('closeMenuBtn');
