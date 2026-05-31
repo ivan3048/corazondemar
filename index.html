@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corazón de Mar - Beach Store</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES Y RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. BARRA DE ANUNCIOS MEJORADA --- */
+        .announcement-bar {
+            background-color: #f58787; 
+            color: #ffffff;
+            text-align: center;
+            padding: 11px 20px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+        }
+
+        .announcement-bar strong {
+            font-weight: 700;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
+        }
+
+        /* --- 2. ENCABEZADO INTEGRADO PREMIUM (HEADER) --- */
+        .site-header {
+            width: 100%;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); /* Separación visual suave */
+        }
+
+        .header-main-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Bloque Izquierdo: Menú Limpio */
+        .main-nav {
+            flex: 1;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            padding: 6px 0;
+            position: relative;
+            transition: color 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Micro-animación suave de línea inferior (Slider Underline) */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .nav-link:hover {
+            color: #f58787;
+        }
+
+        .nav-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-link.active {
+            color: #f58787;
+            font-weight: 600;
+        }
+        
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        /* Bloque Central: Logotipo con Posición Absoluta Controlada */
+        .header-logo {
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .logo-title {
+            font-size: 1.65rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .logo-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Bloque Derecho: Iconos de Acción Reorganizados */
+        .header-actions {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-icon-btn {
+            color: #111111;
+            font-size: 1.15rem;
+            text-decoration: none;
+            position: relative;
+            padding: 6px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .header-icon-btn:hover {
+            color: #f58787;
+            transform: translateY(-2px);
+        }
+
+        /* Burbuja/Contador interactivo de artículos en carrito */
+        .cart-count-badge {
+            position: absolute;
+            top: -2px;
+            right: -4px;
+            background-color: #111111;
+            color: #ffffff;
+            font-size: 0.6rem;
+            font-weight: 600;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- 3. SECCIÓN HERO (AJUSTADA AL NUEVO HEADER) --- */
+        .hero-single-section {
+            width: 100%;
+            height: calc(100vh - 140px); 
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end; 
+            padding: 80px 6%;     
+            position: relative;
+        }
+
+        .hero-text-overlay {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            font-size: 5.5rem;
+            line-height: 0.95;
+            font-weight: 400;
+            letter-spacing: -1px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+            pointer-events: none;
+        }
+
+        .hero-text-overlay span {
+            display: block;
+        }
+
+        /* --- RESPONSIVIDAD ADAPTATIVA (MOBILE SMOOTH) --- */
+        @media (max-width: 992px) {
+            .nav-list {
+                gap: 20px;
+            }
+            .logo-title {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-main-row {
+                padding: 18px 5%;
+            }
+            
+            /* Ocultamos el menú principal para transformarlo a menú hamburguesa o interactivo en móvil */
+            .main-nav {
+                display: none; 
+            }
+
+            .header-logo {
+                position: static;
+                transform: none;
+                text-align: left;
+                flex: unset;
+            }
+
+            .header-actions {
+                flex: unset;
+                gap: 15px;
+            }
+
+            .hero-single-section {
+                height: 60vh;
+                padding: 40px 5%;
+            }
+
+            .hero-text-overlay {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Barra de Anuncios -->
+    <div class="announcement-bar">
+        ¡Envíos a todo México <strong>GRATIS</strong> en compras mayores a $1,199!
+    </div>
+
+    <!-- 2. Header Unificado y Estilizado -->
+    <header class="site-header">
+        <div class="header-main-row">
+            
+            <!-- Bloque Izquierdo: Menú Flotante -->
+            <nav class="main-nav" aria-label="Navegación principal">
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link active">Inicio</a></li>
+                    <li><a href="#" class="nav-link">Catálogo</a></li>
+                    <li><a href="#" class="nav-link">Buscar</a></li>
+                </ul>
+            </nav>
+
+            <!-- Bloque Central: Identidad de Marca -->
+            <div class="header-logo">
+                <h1 class="logo-title">Corazón de Mar</h1>
+                <span class="logo-subtitle">beach store</span>
+            </div>
+
+            <!-- Bloque Derecho: Herramientas del Cliente -->
+            <div class="header-actions">
+                <!-- Icono de Búsqueda dinámico para móvil/desktop opcional -->
+                <a href="#" class="header-icon-btn" aria-label="Buscar productos">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 1rem; opacity: 0.8;"></i>
+                </a>
+                
+                <!-- Icono del Carrito de Compras con burbuja interactiva -->
+                <a href="#" class="header-icon-btn" aria-label="Carrito de compras">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count-badge">0</span>
+                </a>
+            </div>
+            
+        </div>
+    </header>
+
+</body>
+</html>
+
+    <!-- 4. Hero de una sola imagen completa -->
+    <!-- Recuerda que puedes sustituir 'image_897679.jpg' por cualquier otra ruta o enlace de imagen cuando quieras -->
+    <section class="hero-single-section" style="background-image: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.15)), url(banner.png);">
+        
+        <h2 class="hero-text-overlay">
+            <span>New</span>
+            <span>SEASON</span>
+        </h2>
+
+    </section>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* --- SECCIÓN DE COLECCIÓN --- */
+    .collection-section {
+        padding: 60px 4%;
+        background-color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+    }
+
+    .collection-title {
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: #111111;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+    }
+
+    /* Contenedor del control del carrusel */
+    .slider-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Contenedor de la cuadrícula de productos */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px; /* Espaciado ultra fino como en el catálogo original */
+        width: 100%;
+        transition: opacity 0.4s ease;
+    }
+
+    /* Tarjeta de Producto Individual */
+    .product-card {
+        text-decoration: none;
+        color: #111111;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+    }
+
+    /* Contenedor de imagen para controlar el desborde del zoom */
+    .product-image-container {
+        position: relative;
+        width: 100%;
+        padding-top: 120%; /* Proporción vertical elegante */
+        overflow: hidden;
+        background-color: #f7f7f7;
+    }
+
+    /* Imágenes del producto */
+    .product-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease;
+    }
+
+    /* La segunda imagen está oculta por defecto */
+    .img-hover {
+        opacity: 0;
+    }
+
+    /* --- EFECTOS HOVER (PASAR EL MOUSE) --- */
+    .product-card:hover .img-default {
+        opacity: 0;
+    }
+
+    .product-card:hover .img-hover {
+        opacity: 1;
+    }
+
+    /* Resalte y ligero acercamiento de la imagen activa */
+    .product-card:hover .product-img {
+        transform: scale(1.04);
+    }
+
+    /* Información del Producto */
+    .product-info {
+        padding: 15px 5px 5px 5px;
+    }
+
+    .product-name {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+        color: #111111;
+    }
+
+    .product-price {
+        font-size: 0.8rem;
+        color: #555555;
+        font-weight: 400;
+        margin-bottom: 8px;
+    }
+
+    /* Variantes de Color (Burbujas pequeñas) */
+    .product-variants {
+        display: flex;
+        gap: 6px;
+    }
+
+    .variant-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 1px solid rgba(0,0,0,0.15);
+        display: inline-block;
+    }
+
+    /* --- BOTONES DE NAVEGACIÓN (FLECHAS REALES DE LA IMAGEN) --- */
+    .slider-arrow {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        background-color: #cbd5c0; /* Tono verde oliva seco muy suave de tus botones flecha */
+        color: #111111;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+    }
+
+    .slider-arrow:hover {
+        background-color: #111111;
+        color: #ffffff;
+    }
+
+    .arrow-left {
+        left: 15px; /* Ajustadas para que queden flotando elegantemente sobre los costados */
+    }
+
+    .arrow-right {
+        right: 15px;
+    }
+
+    /* --- BOTÓN VER TODO INFERIOR --- */
+    .view-all-container {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .view-all-btn {
+        display: inline-block;
+        padding: 10px 30px;
+        background-color: #cbd5c0; 
+        color: #111111;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-radius: 20px; 
+        transition: all 0.3s ease;
+    }
+
+    .view-all-btn:hover {
+        background-color: #111111;
+        color: #ffffff;
+        transform: translateY(-1px);
+    }
+
+    /* Ocultar dinámicamente el grupo inactivo */
+    .hidden-group {
+        display: none !important;
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 992px) {
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .slider-arrow {
+            display: none; /* Se ocultan en tablet/móvil para mejorar la navegación táctil */
+        }
+    }
+
+    @media (max-width: 600px) {
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* --- SECCIÓN DE COLECCIÓN --- */
+    .collection-section {
+        padding: 60px 4%;
+        background-color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        position: relative;
+        overflow: hidden; /* Evita que el slide genere scroll horizontal accidental */
+    }
+
+    .collection-title {
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        color: #111111;
+        margin-bottom: 40px;
+        letter-spacing: 1px;
+    }
+
+    /* Contenedor del control del carrusel */
+    .slider-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 520px; /* Evita el molesto salto de altura mientras se intercambian los grupos */
+    }
+
+    /* Contenedor de la cuadrícula de productos */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px; 
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+        /* Curva de aceleración premium (Cubic-Bezier) para máxima fluidez */
+        transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+                    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* --- ESTADOS DE ANIMACIÓN SMOOTH PARA EL CARRUSEL --- */
+    /* Grupo que sale hacia la izquierda (Oculto) */
+    .grid-hidden-left {
+        opacity: 0 !important;
+        transform: translateX(-30px);
+        pointer-events: none; /* Evita que el usuario clickee el grupo invisible */
+    }
+
+    /* Grupo que sale hacia la derecha (Oculto) */
+    .grid-hidden-right {
+        opacity: 0 !important;
+        transform: translateX(30px);
+        pointer-events: none;
+    }
+
+    /* Tarjeta de Producto Individual */
+    .product-card {
+        text-decoration: none;
+        color: #111111;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* Contenedor de imagen para controlar el desborde del zoom */
+    .product-image-container {
+        position: relative;
+        width: 100%;
+        padding-top: 120%; /* Proporción vertical */
+        overflow: hidden;
+        background-color: #f7f7f7;
+    }
+
+    /* Imágenes del producto */
+    .product-img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Duración de transición ligeramente más larga y suave al quitar el mouse */
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    opacity 0.6s ease-in-out;
+    }
+
+    /* La segunda imagen está oculta por defecto */
+    .img-hover {
+        opacity: 0;
+    }
+
+    /* --- EFECTOS HOVER (PASAR EL MOUSE) --- */
+    .product-card:hover .img-default {
+        opacity: 0;
+    }
+
+    .product-card:hover .img-hover {
+        opacity: 1;
+    }
+
+    /* Resalte elegante: Acercamiento suave de la imagen */
+    .product-card:hover .product-img {
+        transform: scale(1.05);
+    }
+
+    /* Sutil efecto de elevación en la tarjeta */
+    .product-card:hover {
+        transform: translateY(-4px);
+    }
+
+    /* Información del Producto */
+    .product-info {
+        padding: 15px 5px 5px 5px;
+    }
+
+    .product-name {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+        color: #111111;
+    }
+
+    .product-price {
+        font-size: 0.8rem;
+        color: #555555;
+        font-weight: 400;
+        margin-bottom: 8px;
+    }
+
+    /* Variantes de Color (Burbujas pequeñas) */
+    .product-variants {
+        display: flex;
+        gap: 6px;
+    }
+
+    .variant-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 1px solid rgba(0,0,0,0.15);
+        display: inline-block;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .variant-dot:hover {
+        transform: scale(1.2);
+    }
+
+    /* --- BOTONES DE NAVEGACIÓN (FLECHAS) --- */
+    .slider-arrow {
+        position: absolute;
+        top: 40%;
+        transform: translateY(-50%);
+        background-color: #cbd5c0; 
+        color: #111111;
+        border: none;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        /* Transición suave para el hover del propio botón */
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .slider-arrow:hover {
+        background-color: #111111;
+        color: #ffffff;
+    }
+    
+    /* Pequeño feedback visual al presionarlos */
+    .slider-arrow:active {
+        transform: translateY(-50%) scale(0.92);
+    }
+
+    .arrow-left {
+        left: 15px; 
+    }
+
+    .arrow-right {
+        right: 15px;
+    }
+
+    /* --- BOTÓN VER TODO INFERIOR --- */
+    .view-all-container {
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .view-all-btn {
+        display: inline-block;
+        padding: 10px 30px;
+        background-color: #cbd5c0; 
+        color: #111111;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        border-radius: 20px; 
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .view-all-btn:hover {
+        background-color: #111111;
+        color: #ffffff;
+        transform: translateY(-2px);
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 992px) {
+        .products-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .slider-wrapper {
+            min-height: 760px; /* Ajuste para evitar encimado de elementos en modo 2 columnas */
+        }
+        .slider-arrow {
+            display: none; 
+        }
+    }
+
+    @media (max-width: 600px) {
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+        .slider-wrapper {
+            min-height: 1400px; /* Ajuste para el flujo vertical en móvil */
+        }
+    }
+</style>
+
+<section class="collection-section">
+    <h2 class="collection-title">Nueva temporada</h2>
+
+    <div class="slider-wrapper">
+        <button class="slider-arrow arrow-left" id="prevBtn" aria-label="Anterior"><i class="fa-solid fa-arrow-left"></i></button>
+
+        <div class="products-grid" id="productGroup1">
+            
+            <a href="producto-bikini-yellow.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="2.png" alt="Bikini Yellow" class="product-img img-default">
+                    <img src="3.png" alt="Bikini Yellow Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Yellow</h3>
+                    <p class="product-price">$1,099.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #f7e394;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-bikini-nicole.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="4.png" alt="Bikini Nicole" class="product-img img-default">
+                    <img src="5.png" alt="Bikini Nicole Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Nicole</h3>
+                    <p class="product-price">$1,150.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #e27a43;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-bikini-beth.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="6.png" alt="Bikini Beth" class="product-img img-default">
+                    <img src="7.png" alt="Bikini Beth Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Beth</h3>
+                    <p class="product-price">$1,299.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #222222;"></span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="products-grid grid-hidden-right" id="productGroup2">
+            
+            <a href="producto-bikini-julie.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="8.png" alt="Bikini Julie" class="product-img img-default">
+                    <img src="9.png" alt="Bikini Julie Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Julie</h3>
+                    <p class="product-price">$599.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #000000;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-bikini-sofia.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="10.png" alt="Bikini Sofía" class="product-img img-default">
+                    <img src="11.png" alt="Bikini Sofía Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Sofía</h3>
+                    <p class="product-price">$599.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #5d7c5a;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="producto-bikini-dannie.html" class="product-card">
+                <div class="product-image-container">
+                    <img src="12.png" alt="Bikini Dannie" class="product-img img-default">
+                    <img src="13.png" alt="Bikini Dannie Vista Alterna" class="product-img img-hover">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Bikini Dannie</h3>
+                    <p class="product-price">$599.00</p>
+                    <div class="product-variants">
+                        <span class="variant-dot" style="background-color: #59826d;"></span>
+                        <span class="variant-dot" style="background-color: #a9c2d2;"></span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+        <button class="slider-arrow arrow-right" id="nextBtn" aria-label="Siguiente"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+
+    <div class="view-all-container">
+        <a href="coleccion-completa.html" class="view-all-btn">Ver todo</a>
+    </div>
+</section>
+
+<script>
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const group1 = document.getElementById('productGroup1');
+    const group2 = document.getElementById('productGroup2');
+
+    // Variable para saber cuál grupo está en pantalla actualmente
+    let currentGroup = 1;
+
+    // Función unificada para transiciones direccionales ultrasuaves
+    function moveSlider(direction) {
+        if (direction === 'next' && currentGroup === 1) {
+            // El grupo 1 se desvanece y viaja a la izquierda
+            group1.classList.add('grid-hidden-left');
+            // El grupo 2 entra limpio desde la derecha quitando su clase de bloqueo
+            group2.classList.remove('grid-hidden-right');
+            currentGroup = 2;
+        } else if (direction === 'prev' && currentGroup === 2) {
+            // El grupo 2 regresa ocultándose hacia la derecha
+            group2.classList.add('grid-hidden-right');
+            // El grupo 1 reaparece viniendo desde la izquierda
+            group1.classList.remove('grid-hidden-left');
+            currentGroup = 1;
+        }
+    }
+
+    // Vinculación de eventos con la lógica direccional
+    nextBtn.addEventListener('click', () => moveSlider('next'));
+    prevBtn.addEventListener('click', () => moveSlider('prev'));
+</script>
+<style>
+    /* --- SECCIÓN COLECCIONES --- */
+    .collections-section {
+        width: 100%;
+        background-color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        padding: 40px 0 60px 0;
+    }
+
+    .collections-main-title {
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        font-weight: 400;
+        color: #111111;
+        margin-bottom: 30px;
+        letter-spacing: 2px;
+    }
+
+    /* Contenedor principal del carrusel */
+    .collections-carousel {
+        position: relative;
+        width: 100%;
+        height: 70vh; /* Altura ideal de pantalla completa para lucir la fotografía */
+        min-height: 450px;
+        background-color: #f7f7f7;
+        overflow: hidden;
+    }
+
+    /* Diapositiva individual (Slide) */
+    .collection-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        text-decoration: none; /* Toda la imagen es un enlace interactivo */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        /* Estado inicial oculto para el efecto Fade Smooth */
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s cubic-bezier(0.25, 1, 0.5, 1), 
+                    visibility 1s cubic-bezier(0.25, 1, 0.5, 1);
+        z-index: 1;
+    }
+
+    /* Capa oscura muy sutil para proteger la legibilidad del texto */
+    .collection-slide::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.15);
+        transition: background 0.4s ease;
+    }
+
+    /* Al pasar el mouse por la diapositiva, la capa se oscurece un toque y la imagen gana presencia */
+    .collection-slide:hover::before {
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    /* Estado activo del Slide */
+    .collection-slide.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+    }
+
+    /* Contenido de texto centrado */
+    .collection-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        color: #ffffff;
+        padding: 0 20px;
+    }
+
+    .collection-tagline {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 10px;
+        font-weight: 300;
+        display: block;
+        transform: translateY(15px);
+        opacity: 0;
+        transition: transform 0.8s ease 0.3s, opacity 0.8s ease 0.3s;
+    }
+
+    .collection-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        font-weight: 400;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.8s ease 0.5s, opacity 0.8s ease 0.5s;
+    }
+
+    /* Botón de acción minimalista dentro del slide */
+    .collection-link-btn {
+        display: inline-block;
+        padding: 12px 35px;
+        background-color: #ffffff;
+        color: #111111;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 0; /* Estilo cuadrado de alta costura */
+        transition: all 0.3s ease;
+        transform: translateY(25px);
+        opacity: 0;
+        transition: transform 0.8s ease 0.7s, opacity 0.8s ease 0.7s;
+    }
+
+    .collection-slide:hover .collection-link-btn {
+        background-color: #111111;
+        color: #ffffff;
+    }
+
+    /* --- ANIMACIÓN INTERNA DEL TEXTO CUANDO EL SLIDE ESTÁ ACTIVO --- */
+    .collection-slide.active .collection-tagline,
+    .collection-slide.active .collection-name,
+    .collection-slide.active .collection-link-btn {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    /* --- CONTROLES MANUALES (FLECHAS LATERALES) --- */
+    .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.5rem;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+        opacity: 0.7;
+    }
+
+    .carousel-control:hover {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .control-prev { left: 20px; }
+    .control-next { right: 20px; }
+
+    /* --- INDICADORES INFERIORES (PUNTOS) --- */
+    .carousel-indicators {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 10;
+    }
+
+    .indicator-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.4);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .indicator-dot.active {
+        background-color: #ffffff;
+        transform: scale(1.3);
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 768px) {
+        .collections-carousel {
+            height: 55vh;
+        }
+        .collection-name {
+            font-size: 2.2rem;
+        }
+        .carousel-control {
+            display: none; /* En móviles se prioriza el auto-cambio limpio */
+        }
+    }
+</style>
+
+<section class="collections-section">
+    <h2 class="collections-main-title">Colecciones</h2>
+
+    <div class="collections-carousel">
+        <button class="carousel-control control-prev" id="collPrev" aria-label="Colección Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="carousel-control control-next" id="collNext" aria-label="Colección Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+
+       <a href="coleccion-bikinis.html" class="collection-slide active" style="background-image: url('https://images.unsplash.com/photo-1533659828870-95ee305cee3e?q=80&w=1600&auto=format&fit=crop');">
+    <div class="collection-content">
+        <span class="collection-tagline">Descubre lo nuevo</span>
+        <h3 class="collection-name">Bikinis</h3>
+        <span class="collection-link-btn">Ver Colección</span>
+    </div>
+</a>
+
+<a href="coleccion-enteros.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop');">
+    <div class="collection-content">
+        <span class="collection-tagline">Siluetas Perfectas</span>
+        <h3 class="collection-name">Enteros</h3>
+        <span class="collection-link-btn">Ver Colección</span>
+    </div>
+</a>
+
+<a href="coleccion-control-fit.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1520483601560-389dff434f1c?q=80&w=1600&auto=format&fit=crop');">
+    <div class="collection-content">
+        <span class="collection-tagline">Estilo y Soporte</span>
+        <h3 class="collection-name">Control Fit</h3>
+        <span class="collection-link-btn">Ver Colección</span>
+    </div>
+</a>
+
+<a href="coleccion-beachwear.html" class="collection-slide" style="background-image: url('https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1600&auto=format&fit=crop');">
+    <div class="collection-content">
+        <span class="collection-tagline">Complementos de Playa</span>
+        <h3 class="collection-name">Beachwear</h3>
+        <span class="collection-link-btn">Ver Colección</span>
+    </div>
+</a>
+
+        <div class="carousel-indicators" id="carouselIndicators">
+            <button class="indicator-dot active" data-slide="0" aria-label="Ir a diapositiva 1"></button>
+            <button class="indicator-dot" data-slide="1" aria-label="Ir a diapositiva 2"></button>
+            <button class="indicator-dot" data-slide="2" aria-label="Ir a diapositiva 3"></button>
+            <button class="indicator-dot" data-slide="3" aria-label="Ir a diapositiva 4"></button>
+        </div>
+    </div>
+</section>
+
+<script>
+    const slides = document.querySelectorAll('.collection-slide');
+    const dots = document.querySelectorAll('.indicator-dot');
+    const btnPrev = document.getElementById('collPrev');
+    const btnNext = document.getElementById('collNext');
+    
+    let currentSlideIndex = 0;
+    let carouselTimer = null;
+
+    // Función núcleo para actualizar los estados visuales
+    function updateSlidePosition(newIndex) {
+        // Quitar estado activo al slide y punto actual
+        slides[currentSlideIndex].classList.remove('active');
+        dots[currentSlideIndex].classList.remove('active');
+
+        // Asignar el nuevo índice
+        currentSlideIndex = newIndex;
+
+        // Validar límites circulares
+        if (currentSlideIndex >= slides.length) currentSlideIndex = 0;
+        if (currentSlideIndex < 0) currentSlideIndex = slides.length - 1;
+
+        // Activar el nuevo slide y su respectivo punto indicador
+        slides[currentSlideIndex].classList.add('active');
+        dots[currentSlideIndex].classList.add('active');
+    }
+
+    // Avanzar de manera automática
+    function autoAdvance() {
+        updateSlidePosition(currentSlideIndex + 1);
+    }
+
+    // Iniciar o reiniciar el temporizador de 5 segundos (5000ms)
+    function resetTimer() {
+        clearInterval(carouselTimer);
+        carouselTimer = setInterval(autoAdvance, 5000);
+    }
+
+    // Eventos de control manual de las flechas
+    btnNext.addEventListener('click', () => {
+        updateSlidePosition(currentSlideIndex + 1);
+        resetTimer(); // Evita cambios abruptos justo después de clickear
+    });
+
+    btnPrev.addEventListener('click', () => {
+        updateSlidePosition(currentSlideIndex - 1);
+        resetTimer();
+    });
+
+    // Eventos para interactuar directamente desde las burbujas indicadoras
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            updateSlidePosition(index);
+            resetTimer();
+        });
+    });
+
+    // Encendido inicial del carrusel automático al cargar la página
+    resetTimer();
+</script>
+<style>
+    .benefits-section {
+        padding: 80px 4%;
+        background-color: #fbfbfb; /* Un fondo gris casi imperceptible para que contrasten las tarjetas blancas */
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Tarjeta individual interactiva */
+    .benefit-card {
+        background-color: #ffffff;
+        border: 1px solid #eeeeee;
+        padding: 40px 30px;
+        text-align: center;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        
+        /* Transición premium con cubic-bezier para la elevación y el cambio de color */
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    background-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    border-color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    /* --- EFECTO INTERACTIVO HOVER --- */
+    .benefit-card:hover {
+        transform: translateY(-10px);
+        background-color: #f58787; /* El tono rosa sutil de la barra de anuncios */
+        border-color: #f58787;
+        box-shadow: 0 15px 35px rgba(245, 135, 135, 0.25);
+    }
+
+    /* Contenedor del Icono */
+    .benefit-icon-wrapper {
+        margin-bottom: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70px;
+    }
+
+    /* Estilos para el SVG del icono */
+    .benefit-icon-wrapper svg {
+        width: 60px;
+        height: 60px;
+        fill: none;
+        stroke: #111111; /* Color negro inicial */
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+                    stroke 0.5s ease;
+    }
+
+    /* Animación del icono al pasar el mouse por la tarjeta */
+    .benefit-card:hover .benefit-icon-wrapper svg {
+        stroke: #ffffff; /* El icono se vuelve blanco */
+        transform: scale(1.12) rotate(3deg); /* Ligera escala y rotación orgánica */
+    }
+
+    /* Título del beneficio */
+    .benefit-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.35rem;
+        font-weight: 400;
+        color: #111111;
+        margin-bottom: 15px;
+        letter-spacing: 0.5px;
+        transition: color 0.4s ease;
+    }
+
+    .benefit-card:hover .benefit-title {
+        color: #ffffff;
+    }
+
+    /* Descripción del texto */
+    .benefit-description {
+        font-size: 0.85rem;
+        color: #666666;
+        line-height: 1.6;
+        font-weight: 400;
+        transition: color 0.4s ease;
+    }
+
+    .benefit-card:hover .benefit-description {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 992px) {
+        .benefits-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .benefits-section {
+            padding: 50px 5%;
+        }
+        .benefits-grid {
+            grid-template-columns: 1fr; /* Una sola columna en móviles */
+            gap: 25px;
+        }
+        .benefit-card {
+            padding: 35px 25px;
+        }
+    }
+</style>
+
+<section class="benefits-section">
+    <div class="benefits-grid">
+
+        <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 2h12v4c0 3-2 5-5 6v1c3 1 5 3 5 6v3H6v-3c0-3 2-5 5-6v-1c-3-1-5-3-5-6V2z"/>
+                    <path d="M6 6h12M6 17h12"/>
+                </svg>
+            </div>
+            <h3 class="benefit-title">Variedad premium</h3>
+            <p class="benefit-description">Hacemos una curaduría exclusiva de los mejores proveedores y diseños para ofrecerte looks a la moda, de calidad y que te hagan sentir cómoda y hermosa.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                    <path d="M12 2l1.5 3h3.5l-2.5 2.5 1 3.5-3.5-2-3.5 2 1-3.5L5 5h3.5z" stroke-width="1" style="transform: scale(0.6); transform-origin: center; translate: 0px -4px;"/>
+                </svg>
+            </div>
+            <h3 class="benefit-title">Garantía de producto</h3>
+            <p class="benefit-description">Con más de 7 años en el mercado, hemos tenido a más de 5,000 clientas satisfechas en todo México respaldando la durabilidad de nuestras prendas.</p>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon-wrapper">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6z"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+            </div>
+            <h3 class="benefit-title">Siempre a tu alcance</h3>
+            <p class="benefit-description">Contamos con gran variedad de diseños todo el año, a precios accesibles a partir de $599 MXN. ¡No te quedes sin estrenar en tus próximas vacaciones!</p>
+        </div>
+
+    </div>
+</section>
+</body>
+<!-- Enlace a FontAwesome para los iconos (asegúrate de tenerlo en tu proyecto) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* --- PIE DE PÁGINA (FOOTER) --- */
+    .main-footer {
+        background-color: #f58787; /* El tono rosa icónico de tu marca */
+        color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        padding: 60px 6% 20px 6%;
+    }
+
+    .footer-container {
+        display: grid;
+        grid-template-columns: 1.2fr 1.1fr 0.9fr; /* Ajuste de proporciones */
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 40px;
+    }
+
+    /* Títulos de las Secciones */
+    .footer-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+    }
+
+    /* --- COLUMNA 1: UBICACIÓN --- */
+    .footer-location-box {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .location-text {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Botón interactivo de Google Maps */
+    .maps-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        align-self: flex-start;
+        padding: 12px 24px;
+        background-color: #ffffff;
+        color: #f58787;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .maps-btn:hover {
+        background-color: #111111;
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* --- COLUMNA 2: HORARIOS VISUALES --- */
+    .footer-hours-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Bloques individuales para cada horario */
+    .hours-card {
+        background-color: rgba(255, 255, 255, 0.1); /* Fondo translúcido sutil */
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 12px 16px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .hours-card:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.02);
+    }
+
+    .hours-days {
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .hours-days i {
+        font-size: 0.85rem;
+        opacity: 0.8;
+    }
+
+    .hours-time {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: #ffffff;
+    }
+
+    /* --- COLUMNA 3: REDES Y NUEVO BOTÓN --- */
+    .footer-right-box {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .social-links-wrapper {
+        display: flex;
+        gap: 15px;
+    }
+
+    /* Botones circulares flotantes para redes */
+    .social-card-btn {
+        width: 46px;
+        height: 46px;
+        background-color: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    .social-card-btn:hover {
+        background-color: #ffffff;
+        transform: translateY(-5px) rotate(8deg);
+    }
+
+    .social-card-btn.instagram:hover { color: #e1306c; }
+    .social-card-btn.facebook:hover { color: #1877f2; }
+
+    /* NUEVO BOTÓN DE VIDEOS INTERACTIVO */
+    .videos-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 12px 20px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 30px; /* Estilo píldora muy en tendencia */
+        transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        width: fit-content;
+    }
+
+    .videos-btn i {
+        font-size: 0.85rem;
+        transition: transform 0.3s ease;
+    }
+
+    .videos-btn:hover {
+        background-color: #ffffff;
+        color: #f58787;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .videos-btn:hover i {
+        transform: scale(1.2);
+    }
+
+    /* --- BARRA INFERIOR DE CRÉDITOS --- */
+    .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 400;
+    }
+
+    .footer-bottom a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+        color: #111111;
+    }
+
+    /* --- RESPONSIVIDAD --- */
+    @media (max-width: 992px) {
+        .footer-container {
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 18px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .footer-container {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+        }
+        .footer-bottom {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+        .videos-btn {
+            width: 100%; /* El botón ocupa el ancho completo en móvil para mejor clickeo */
+        }
+    }
+</style>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        
+        <!-- Columna 1: Ubicación Real con Botón Interactivo -->
+        <div class="footer-location-box">
+            <h3 class="footer-title">Ubicación</h3>
+            <p class="location-text">
+                Prol. Zaragoza #426 Plaza Ambiance, Local 10,<br>
+                Jardines de la Concepción CP. 20120<br>
+                Aguascalientes, Ags. MX.
+            </p>
+            <a href="https://maps.app.goo.gl/iMioPSAJxySZALFM7" target="_blank" rel="noopener" class="maps-btn">
+                <i class="fa-solid fa-location-dot"></i> Abrir en Google Maps
+            </a>
+        </div>
+
+        <!-- Columna 2: Horarios Rediseñados de Forma Visual -->
+        <div>
+            <h3 class="footer-title">Horario</h3>
+            <div class="footer-hours-container">
+                
+                <div class="hours-card">
+                    <span class="hours-days"><i class="fa-regular fa-calendar-days"></i> Lun - Vie</span>
+                    <span class="hours-time">10:00 am - 8:00 pm</span>
+                </div>
+
+                <div class="hours-card">
+                    <span class="hours-days"><i class="fa-regular fa-calendar"></i> Sábado</span>
+                    <span class="hours-time">10:00 am - 5:00 pm</span>
+                </div>
+
+                <div class="hours-card">
+                    <span class="hours-days"><i class="fa-regular fa-sun"></i> Domingo</span>
+                    <span class="hours-time">11:00 am - 3:00 pm</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Columna 3: Redes Sociales Dinámicas y Botón Multimedia -->
+        <div class="footer-right-box">
+            <div>
+                <h3 class="footer-title">Síguenos</h3>
+                <div class="social-links-wrapper">
+                    <a href="https://www.instagram.com/_corazondemar_mx/" target="_blank" rel="noopener" class="social-card-btn instagram" aria-label="Ir a nuestro Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/people/Coraz%C3%B3n-de-Mar/100063795116548/" target="_blank" rel="noopener" class="social-card-btn facebook" aria-label="Ir a nuestro Facebook">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nuevo Módulo del Botón "Videos" -->
+            <div>
+                <a href="videos-exclusivos.html" class="videos-btn">
+                    <i class="fa-solid fa-play"></i> Videos
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Barra Inferior de Créditos -->
+    <div class="footer-bottom">
+        <span>© 2026 Corazón de Mar Beachstore. Tecnología de Shopify.</span>
+        <a href="terminos-y-politicas.html">Términos y políticas</a>
+    </div>
+</footer>
+</html>
