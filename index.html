@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,22 +27,17 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- 1. BARRA DE ANUNCIOS MEJORADA --- */
+        /* --- 1. BARRA DE ANUNCIOS: EDICIÓN PROYECTO ESCOLAR --- */
         .announcement-bar {
             background-color: #f58787; 
             color: #ffffff;
             text-align: center;
-            padding: 11px 20px;
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 2px;
+            padding: 14px 20px; /* Un poco más de espacio para la jerarquía del texto */
+            font-size: 0.95rem; /* Texto más grande y visible */
+            font-weight: 700; /* Completamente en negrita */
+            letter-spacing: 4px; /* Mayor separación entre letras para un look de marca premium */
             text-transform: uppercase;
             box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
-        }
-
-        .announcement-bar strong {
-            font-weight: 700;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.6);
         }
 
         /* --- 2. ENCABEZADO INTEGRADO PREMIUM (HEADER) --- */
@@ -229,6 +224,12 @@
         }
 
         @media (max-width: 768px) {
+            .announcement-bar {
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+                padding: 12px 15px;
+            }
+
             .header-main-row {
                 padding: 18px 5%;
             }
@@ -263,9 +264,9 @@
 </head>
 <body>
 
-    <!-- 1. Barra de Anuncios -->
+    <!-- 1. Barra de Anuncios: Cambiada a Proyecto Escolar -->
     <div class="announcement-bar">
-        ¡Envíos a todo México <strong>GRATIS</strong> en compras mayores a $1,199!
+        Este sitio web es un proyecto escolar
     </div>
 
     <!-- 2. Header Unificado y Estilizado -->
@@ -303,6 +304,7 @@
             
         </div>
     </header>
+
 
 </body>
 </html>
