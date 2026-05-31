@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección Bikinis - Corazón de Mar</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES Y RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. BARRA DE ANUNCIOS --- */
+        .announcement-bar {
+            background-color: #f58787; 
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+            position: relative;
+            z-index: 100;
+        }
+
+        /* --- 2. HEADER --- */
+        .site-header {
+            width: 100%;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+            z-index: 90;
+        }
+
+        .header-main-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .menu-toggle-btn {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        .header-logo {
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .logo-title {
+            font-size: 1.65rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .logo-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .header-spacer {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* Botón Carrito Superior */
+        .cart-header-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-header-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #f58787;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(25%, -25%);
+            border: 2px solid #ffffff;
+        }
+
+        /* --- 3. MENÚ LATERAL (SIDEBAR) --- */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -320px; 
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 35px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .sidebar-nav.open {
+            left: 0; 
+        }
+
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.25rem;
+            align-self: flex-end;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .sidebar-close-btn:hover {
+            color: #f58787;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #f58787;
+            padding-left: 6px;
+        }
+
+        .sidebar-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-link.active {
+            color: #f58787;
+            font-weight: 600;
+            padding-left: 6px;
+        }
+
+        .sidebar-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            z-index: 190;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- 4. SECCIÓN CABECERA DE CATEGORÍA --- */
+        .category-hero {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            background: linear-gradient(to bottom, #fff5f5 0%, #ffffff 100%);
+            margin-bottom: 20px;
+        }
+
+        .category-subtitle {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: #f58787;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: #111111;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .category-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: #111111;
+        }
+
+        .category-description {
+            max-width: 600px;
+            margin: 15px auto 0 auto;
+            font-size: 0.95rem;
+            color: #666666;
+            line-height: 1.6;
+        }
+
+        /* --- 5. CUADRÍCULA DE PRODUCTOS (3 FILAS x 2 COLUMNAS) --- */
+        .products-section {
+            max-width: 1100px; 
+            margin: 0 auto 80px auto;
+            padding: 0 4%;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            column-gap: 40px;
+            row-gap: 50px;
+        }
+
+        /* Enlace Contenedor Principal */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: #111111;
+            cursor: pointer;
+        }
+
+        .product-card-image {
+            width: 100%;
+            aspect-ratio: 3 / 4; 
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .product-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #ffffff;
+            color: #111111;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Efectos Hover */
+        .product-card:hover .product-card-image img {
+            transform: scale(1.03);
+            opacity: 0.95;
+        }
+
+        .product-card:hover .product-card-title {
+            color: #f58787;
+        }
+
+        /* Info del producto */
+        .product-card-info {
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .product-card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .product-card-price {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #666666;
+            margin-bottom: 12px;
+        }
+
+        /* Muestras de color (Swatches) */
+        .product-swatches {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .swatch {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: inset 0 0 2px rgba(0,0,0,0.1);
+        }
+
+        /* --- RESPONSIVIDAD --- */
+        @media (max-width: 992px) {
+            .logo-title { font-size: 1.4rem; letter-spacing: 3px; }
+            .category-title { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .announcement-bar { font-size: 0.85rem; letter-spacing: 3px; padding: 12px 15px; }
+            .header-main-row { padding: 18px 5%; }
+            .category-hero { padding: 40px 20px 30px 20px; }
+            .category-title { font-size: 2rem; }
+            .products-grid { column-gap: 20px; row-gap: 35px; }
+            .product-card-title { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Barra de Anuncios -->
+    <div class="announcement-bar">
+        Este sitio web es un proyecto escolar
+    </div>
+
+    <!-- 2. Header -->
+    <header class="site-header">
+        <div class="header-main-row">
+            <div class="menu-toggle-btn">
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="header-logo">
+                <h1 class="logo-title">Corazón de Mar</h1>
+                <span class="logo-subtitle">Beach Store</span>
+            </div>
+
+            <div class="header-spacer">
+                <button class="cart-header-btn" aria-label="Ver Carrito">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fondo desenfocado del Menú Lateral -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Menú Lateral Desplegable (Sidebar) -->
+<nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
+        <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <ul class="sidebar-list">
+            <li><a href="index.html" class="sidebar-link">Inicio</a></li>
+            <li><a href="bikinis.html" class="sidebar-link">Bikinis</a></li>
+            <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
+            <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
+            <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
+        </ul>
+    </nav>
+
+    <!-- 3. Cabecera de la Categoría -->
+    <section class="category-hero">
+        <span class="category-subtitle">Colección Exclusiva</span>
+        <h2 class="category-title">Bikinis</h2>
+        <p class="category-description">
+            Diseños regulables de calce perfecto y estampados en tendencia. Encuentra tu modelo ideal para brillar bajo el sol.
+        </p>
+    </section>
+
+    <!-- 4. Cuadrícula de 6 Productos (3 Filas x 2 Columnas) -->
+    <main class="products-section">
+        <div class="products-grid">
+            
+            <!-- PRODUCTO 1: BIKINI YELLOW -->
+            <a href="bikiniyellow.html" class="product-card">
+                <div class="product-card-image">
+                    <img src="2.png" alt="Bikini Yellow">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Yellow</h3>
+                    <p class="product-card-price">$1,099.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #f1e496;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- PRODUCTO 2: BIKINI NICOLE -->
+            <a href="bikininikole.html" class="product-card">
+                <div class="product-card-image">
+                    <span class="product-badge">Tendencia</span>
+                    <img src="4.png" alt="Bikini Nicole">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Nicole</h3>
+                    <p class="product-card-price">$1,150.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #d77846;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- PRODUCTO 3: BIKINI BETH -->
+            <a href="bikinibeth.html" class="product-card">
+                <div class="product-card-image">
+                    <img src="6.png" alt="Bikini Beth">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Beth</h3>
+                    <p class="product-card-price">$1,299.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #222222;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- PRODUCTO 4: BIKINI JULIE -->
+            <a href="bikinijulie.html" class="product-card">
+                <div class="product-card-image">
+                    <img src="8.png" alt="Bikini Julie">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Julie</h3>
+                    <p class="product-card-price">$599.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #111111;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- PRODUCTO 5: BIKINI SOFÍA -->
+            <a href="bikinisofia.html" class="product-card">
+                <div class="product-card-image">
+                    <img src="10.png" alt="Bikini Sofía">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Sofía</h3>
+                    <p class="product-card-price">$599.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #5d7254;"></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- PRODUCTO 6: BIKINI DANNIE -->
+            <a href="bikinidanie.html" class="product-card">
+                <div class="product-card-image">
+                    <span class="product-badge">Nuevo</span>
+                    <img src="12.png" alt="Bikini Dannie">
+                </div>
+                <div class="product-card-info">
+                    <h3 class="product-card-title">Bikini Dannie</h3>
+                    <p class="product-card-price">$599.00</p>
+                    <div class="product-swatches">
+                        <span class="swatch" style="background-color: #5d7254;"></span>
+                        <span class="swatch" style="background-color: #abc1d2;"></span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Scripts para el comportamiento del menú lateral -->
+    <script>
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleMenu() {
+            sidebarNav.classList.toggle('open');
+            sidebarOverlay.classList.toggle('visible');
+        }
+
+        openMenuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+        sidebarOverlay.addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>

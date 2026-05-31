@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIKINI FER - Corazón de Mar</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES Y RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. BARRA DE ANUNCIOS --- */
+        .announcement-bar {
+            background-color: #f58787; 
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 4px; 
+            text-transform: uppercase;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 100;
+        }
+
+        /* --- 2. HEADER --- */
+        .site-header {
+            width: 100%;
+            background-color: #ffffff;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+            z-index: 90;
+        }
+
+        .header-main-row {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 4%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .menu-toggle-btn {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .hamburger-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        .header-logo {
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .logo-title {
+            font-size: 1.65rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            color: #111111;
+        }
+
+        .logo-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: #888888;
+            letter-spacing: 2px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .header-spacer {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* Botón Carrito Superior */
+        .cart-header-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.35rem;
+            cursor: pointer;
+            padding: 8px;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-header-btn:hover {
+            color: #f58787;
+            transform: scale(1.05);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #f58787;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(25%, -25%);
+            border: 2px solid #ffffff;
+        }
+
+        /* --- 3. MENÚ LATERAL (SIDEBAR) --- */
+        .sidebar-nav {
+            position: fixed;
+            top: 0;
+            left: -320px; 
+            width: 320px;
+            height: 100vh;
+            background-color: #ffffff;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.05);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 35px;
+            transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .sidebar-nav.open {
+            left: 0; 
+        }
+
+        .sidebar-close-btn {
+            background: none;
+            border: none;
+            color: #111111;
+            font-size: 1.25rem;
+            align-self: flex-end;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+            margin-bottom: 50px;
+        }
+
+        .sidebar-close-btn:hover {
+            color: #f58787;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #222222;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 0;
+            display: inline-block;
+            position: relative;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+        }
+
+        .sidebar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 25px;
+            height: 1.5px;
+            background-color: #f58787;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-link:hover {
+            color: #f58787;
+            padding-left: 6px;
+        }
+
+        .sidebar-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-link.active {
+            color: #f58787;
+            font-weight: 600;
+            padding-left: 6px;
+        }
+
+        .sidebar-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(2px);
+            z-index: 190;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .sidebar-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- 4. SECCIÓN DETALLE DE PRODUCTO --- */
+        .product-container {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 0 4%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Galería de Imágenes */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-image-wrapper {
+            width: 100%;
+            background-color: #f9f9f9;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 4 / 3;
+        }
+
+        .main-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbnail-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .thumb-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, opacity 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        .thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumb-box:hover {
+            opacity: 0.8;
+        }
+
+        .thumb-box.active {
+            border-color: #111111;
+        }
+
+        /* Información y Compra */
+        .product-info {
+            padding-top: 10px;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: #111111;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #222222;
+            margin-bottom: 6px;
+        }
+
+        .tax-notice {
+            font-size: 0.82rem;
+            color: #777777;
+            margin-bottom: 35px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Selector de Tallas */
+        .options-section {
+            margin-bottom: 35px;
+        }
+
+        .option-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #333333;
+            display: block;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 14px;
+        }
+
+        .size-btn {
+            background: none;
+            border: 1px solid #dddddd;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #222222;
+        }
+
+        .size-btn:hover {
+            border-color: #111111;
+        }
+
+        .size-btn.active {
+            background-color: #111111;
+            border-color: #111111;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Controles de Compra */
+        .purchase-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #dddddd;
+            border-radius: 30px;
+            padding: 6px 14px;
+            background-color: #ffffff;
+        }
+
+        .qty-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: #555555;
+            padding: 5px 10px;
+            transition: color 0.2s;
+        }
+
+        .qty-btn:hover {
+            color: #f58787;
+        }
+
+        .qty-input {
+            width: 35px;
+            text-align: center;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111111;
+            outline: none;
+            -moz-appearance: textfield;
+        }
+        
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background-color: #c9d1b6; 
+            color: #2b3a1a;
+            border: none;
+            border-radius: 30px;
+            padding: 16px 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .add-to-cart-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Descripción */
+        .product-description {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: #444444;
+            letter-spacing: 0.2px;
+            padding-top: 15px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        /* --- 5. SECCIÓN GARANTÍAS --- */
+        .guarantees-section {
+            background-color: #fdfdfd;
+            border-top: 1px solid #f0f0f0;
+            padding: 80px 4%;
+            margin-top: 60px;
+        }
+
+        .guarantees-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .guarantee-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .guarantee-icon-wrapper {
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .guarantee-icon-wrapper i {
+            font-size: 2.8rem;
+            color: #111111;
+            font-weight: 300;
+        }
+
+        .guarantee-title {
+            font-size: 1.45rem;
+            font-weight: 500;
+            color: #111111;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .guarantee-text {
+            font-size: 0.9rem;
+            color: #555555;
+            line-height: 1.6;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        /* --- PIE DE PÁGINA REQUERIDO --- */
+        .main-footer {
+            background-color: #f58787; 
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            padding: 60px 6% 20px 6%;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1.1fr 0.9fr; 
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 40px;
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .footer-location-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .location-text {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .maps-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            align-self: flex-start;
+            padding: 12px 24px;
+            background-color: #ffffff;
+            color: #f58787;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .maps-btn:hover {
+            background-color: #111111;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer-hours-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hours-card {
+            background-color: rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 16px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .hours-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .hours-days {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hours-days i {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .hours-time {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #ffffff;
+        }
+
+        .footer-right-box {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .social-links-wrapper {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-card-btn {
+            width: 46px;
+            height: 46px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .social-card-btn:hover {
+            background-color: #ffffff;
+            transform: translateY(-5px) rotate(8deg);
+        }
+
+        .social-card-btn.instagram:hover { color: #e1306c; }
+        .social-card-btn.facebook:hover { color: #1877f2; }
+
+        .videos-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 30px; 
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            width: fit-content;
+        }
+
+        .videos-btn i {
+            font-size: 0.85rem;
+            transition: transform 0.3s ease;
+        }
+
+        .videos-btn:hover {
+            background-color: #ffffff;
+            color: #f58787;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .videos-btn:hover i {
+            transform: scale(1.2);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #111111;
+        }
+
+        /* --- RESPONSIVIDAD ADAPTATIVA GRAL --- */
+        @media (max-width: 992px) {
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .guarantees-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 35px;
+            }
+            .footer-title {
+                font-size: 1.5rem;
+                margin-bottom: 18px;
+            }
+            .logo-title {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .announcement-bar {
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+                padding: 12px 15px;
+            }
+            .header-main-row {
+                padding: 18px 5%;
+            }
+            .product-title {
+                font-size: 1.8rem;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding-bottom: 30px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .videos-btn {
+                width: 100%; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Barra de Anuncios -->
+    <div class="announcement-bar">
+        Este sitio web es un proyecto escolar
+    </div>
+
+    <!-- Fondo desenfocado del Menú Lateral -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Menú Lateral Desplegable (Sidebar) -->
+  <nav class="sidebar-nav" id="sidebarNav" aria-label="Navegación lateral">
+        <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <ul class="sidebar-list">
+            <li><a href="index.html" class="sidebar-link">Inicio</a></li>
+            <li><a href="bikinis.html" class="sidebar-link">Bikinis</a></li>
+            <li><a href="enteros.html" class="sidebar-link">Enteros</a></li>
+            <li><a href="control-fit.html" class="sidebar-link">Control Fit</a></li>
+            <li><a href="beach-wear.html" class="sidebar-link">Beach Wear</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. Header Integrado -->
+    <header class="site-header">
+        <div class="header-main-row">
+            <div class="menu-toggle-btn">
+                <button class="hamburger-btn" id="openMenuBtn" aria-label="Abrir menú">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <div class="header-logo">
+                <h1 class="logo-title">Corazón de Mar</h1>
+                <span class="logo-subtitle">beach store</span>
+            </div>
+            <div class="header-spacer">
+                <!-- Botón de carrito añadido -->
+                <button class="cart-header-btn" id="cartHeaderBtn" aria-label="Ver carrito">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 4. Detalle del Producto -->
+    <main class="product-container">
+        
+        <!-- Bloque Izquierdo: Galería Interactiva -->
+        <section class="product-gallery" aria-label="Galería de imágenes">
+            <div class="main-image-wrapper">
+                <img src="10.png" id="mainProductImg" alt="Bikini Beth Imagen Principal">
+            </div>
+            <div class="thumbnail-row">
+                <div class="thumb-box active" onclick="changeImage(this, '10.png')">
+                    <img src="10.png" alt="Miniatura 1">
+                </div>
+                <div class="thumb-box" onclick="changeImage(this, '11.png')">
+                    <img src="11.png" alt="Miniatura 2">
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloque Derecho: Información de Compra -->
+        <section class="product-info" aria-label="Detalles de compra">
+            <h2 class="product-title">BIKINI SOFIA</h2>
+            <p class="product-price">$ 599.00</p>
+            <p class="tax-notice">Impuestos incluidos. Envío calculado en el pago.</p>
+
+            <!-- Variaciones: Talla Únicamente -->
+            <div class="options-section">
+                <span class="option-label">Talla</span>
+                <div class="size-selector">
+                    <button class="size-btn" onclick="selectSize(this)">S</button>
+                    <button class="size-btn" onclick="selectSize(this)">M</button>
+                    <button class="size-btn active" onclick="selectSize(this)">L</button>
+                </div>
+            </div>
+
+            <!-- Acciones: Cantidad y Añadir -->
+            <div class="purchase-actions">
+                <div class="quantity-selector">
+                    <button class="qty-btn" onclick="updateQuantity(-1)">-</button>
+                    <input type="number" value="1" min="1" id="productQty" class="qty-input">
+                    <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                </div>
+                <button class="add-to-cart-btn" id="addToCartBtn">
+                    <i class="fa-solid fa-bag-shopping"></i> Agregar al carrito
+                </button>
+            </div>
+
+            <!-- Descripción -->
+            <div class="product-description">
+            </div>
+        </section>
+    </main>
+
+    <!-- 5. Sección de Garantías -->
+    <section class="guarantees-section" aria-label="Garantías de marca">
+        <div class="guarantees-grid">
+            <div class="guarantee-item">
+                <div class="guarantee-icon-wrapper">
+                    <i class="fa-solid fa-person-swimming"></i>
+                </div>
+                <h3 class="guarantee-title">Variedad premium</h3>
+                <p class="guarantee-text">Hacemos una curaduría exclusiva de los mejores proveedores y diseños para ofrecerte looks a la moda, de calidad y que te hagan sentir cómoda y hermosa.</p>
+            </div>
+            <div class="guarantee-item">
+                <div class="guarantee-icon-wrapper">
+                    <i class="fa-regular fa-face-smile-beam"></i>
+                </div>
+                <h3 class="guarantee-title">Garantía de producto</h3>
+                <p class="guarantee-text">Con mas de 7 años en el mercado, hemos tenido a más de 5,000 clientas satisfechas en todo México.</p>
+            </div>
+            <div class="guarantee-item">
+                <div class="guarantee-icon-wrapper">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <h3 class="guarantee-title">Siempre a tu alcance</h3>
+                <p class="guarantee-text">Contamos con gran variedad de diseños todo el año, a precios accesibles a partir de $599 MXN. ¡No te quedes sin estrenar!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Pie de Página Solicitado -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            
+            <!-- Columna 1: Ubicación Real con Botón Interactivo -->
+            <div class="footer-location-box">
+                <h3 class="footer-title">Ubicación</h3>
+                <p class="location-text">
+                    Prol. Zaragoza #426 Plaza Ambiance, Local 10,<br>
+                    Jardines de la Concepción CP. 20120<br>
+                    Aguascalientes, Ags. MX.
+                </p>
+                <a href="https://maps.app.goo.gl/iMioPSAJxySZALFM7" target="_blank" rel="noopener" class="maps-btn">
+                    <i class="fa-solid fa-location-dot"></i> Abrir en Google Maps
+                </a>
+            </div>
+
+            <!-- Columna 2: Horarios Rediseñados de Forma Visual -->
+            <div>
+                <h3 class="footer-title">Horario</h3>
+                <div class="footer-hours-container">
+                    
+                    <div class="hours-card">
+                        <span class="hours-days"><i class="fa-regular fa-calendar-days"></i> Lun - Vie</span>
+                        <span class="hours-time">10:00 am - 8:00 pm</span>
+                    </div>
+
+                    <div class="hours-card">
+                        <span class="hours-days"><i class="fa-regular fa-calendar"></i> Sábado</span>
+                        <span class="hours-time">10:00 am - 5:00 pm</span>
+                    </div>
+
+                    <div class="hours-card">
+                        <span class="hours-days"><i class="fa-regular fa-sun"></i> Domingo</span>
+                        <span class="hours-time">11:00 am - 3:00 pm</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Columna 3: Redes Sociales Dinámicas y Botón Multimedia -->
+            <div class="footer-right-box">
+                <div>
+                    <h3 class="footer-title">Síguenos</h3>
+                    <div class="social-links-wrapper">
+                        <a href="https://www.instagram.com/_corazondemar_mx/" target="_blank" rel="noopener" class="social-card-btn instagram" aria-label="Ir a nuestro Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Coraz%C3%B3n-de-Mar/100063795116548/" target="_blank" rel="noopener" class="social-card-btn facebook" aria-label="Ir a nuestro Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Nuevo Módulo del Botón "Videos" -->
+                <div>
+                    <a href="videos.html" class="videos-btn">
+                        <i class="fa-solid fa-play"></i> Videos
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Barra Inferior de Créditos -->
+        <div class="footer-bottom">
+            <span>© 2026 Corazón de Mar Beachstore. Tecnología de Shopify.</span>
+        </div>
+    </footer>
+
+    <!-- Lógicas de Interacción -->
+    <script>
+        // --- LÓGICA DEL MENÚ LATERAL ---
+        const openMenuBtn = document.getElementById('openMenuBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const sidebarNav = document.getElementById('sidebarNav');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function openMenu() {
+            sidebarNav.classList.add('open');
+            sidebarOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            sidebarNav.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+
+        openMenuBtn.addEventListener('click', openMenu);
+        closeMenuBtn.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+
+        // --- LÓGICA DE LA GALERÍA DE IMÁGENES ---
+        function changeImage(thumbnail, newSrc) {
+            const mainImg = document.getElementById('mainProductImg');
+            mainImg.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                mainImg.src = newSrc;
+                mainImg.style.opacity = '1';
+            }, 200);
+
+            document.querySelectorAll('.thumb-box').forEach(box => {
+                box.classList.remove('active');
+            });
+            thumbnail.classList.add('active');
+        }
+
+        // --- LÓGICA DEL SELECTOR DE TALLAS ---
+        let selectedSize = 'L'; // Talla activa por defecto
+        function selectSize(button) {
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+            selectedSize = button.innerText;
+        }
+
+        // --- LÓGICA DEL CONTADOR DE CANTIDAD ---
+        function updateQuantity(change) {
+            const qtyInput = document.getElementById('productQty');
+            let currentQty = parseInt(qtyInput.value) || 1;
+            currentQty += change;
+            if (currentQty < 1) currentQty = 1;
+            qtyInput.value = currentQty;
+        }
+
+        // --- LÓGICA INTERACTIVA: AÑADIR AL CARRITO Y ACTUALIZAR NAVBAR ---
+        let totalCartItems = 0;
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartHeaderBtn = document.getElementById('cartHeaderBtn');
+
+        addToCartBtn.addEventListener('click', () => {
+            const qty = parseInt(document.getElementById('productQty').value) || 1;
+            
+            // Actualizar total y badge del menú superior
+            totalCartItems += qty;
+            cartBadge.innerText = totalCartItems;
+
+            alert(`¡Éxito! Se han añadido ${qty} Bikini(s) Fer (Talla ${selectedSize}) a tu carrito de compras.`);
+        });
+
+        // Acción al pulsar el carrito de la barra superior
+        cartHeaderBtn.addEventListener('click', () => {
+            alert(`Tu carrito actual contiene ${totalCartItems} producto(s).`);
+        });
+    </script>
+</body>
+</html>
