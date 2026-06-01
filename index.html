@@ -282,6 +282,81 @@
                 font-size: 3.5rem;
             }
         }
+       /* --- NUEVA SECCIÓN: BANNER DE TEXTO EN MOVIMIENTO (MARQUEE) --- */
+.beach-ticker-section {
+    position: relative;
+    width: 100%;
+    height: 90px; /* Altura reducida */
+    background-image: url('40.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efecto Parallax sutil */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Capa superpuesta de color azul translúcido */
+.beach-ticker-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 74, 111, 0.55); /* Tono azul estético */
+    z-index: 1;
+}
+
+/* Contenedor del riel de movimiento */
+.ticker-wrap {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
+.ticker-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeContinuous 25s linear infinite;
+}
+
+/* Estilo de los bloques de texto */
+.ticker-content {
+    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    font-size: 1.8rem; /* Tamaño de letra ligeramente menor para ajustarse a la nueva altura */
+    font-weight: 380;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-content span {
+    padding: 0 40px;
+    letter-spacing: 2px;
+}
+
+/* Animación CSS para desplazamiento continuo de derecha a izquierda */
+@keyframes marqueeContinuous {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Ajustes Responsivos */
+@media (max-width: 768px) {
+    .beach-ticker-section {
+        height: 70px; /* Más compacto en móviles */
+    }
+    .ticker-content {
+        font-size: 1.2rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -948,6 +1023,27 @@
     nextBtn.addEventListener('click', () => moveSlider('next'));
     prevBtn.addEventListener('click', () => moveSlider('prev'));
 </script>
+<section class="beach-ticker-section">
+    <div class="beach-ticker-overlay"></div>
+    <div class="ticker-wrap">
+        <div class="ticker-track">
+            <div class="ticker-content">
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+            </div>
+            <div class="ticker-content" aria-hidden="true">
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+                <span>Life is better at the beach!</span>
+            </div>
+        </div>
+    </div>
+</section>
 <style>
     /* --- SECCIÓN COLECCIONES --- */
     .collections-section {
